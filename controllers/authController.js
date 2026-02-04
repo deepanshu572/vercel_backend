@@ -14,10 +14,12 @@ export const register = async (req, res) => {
       password,
     });
     const token = await genToken(user._id);
+   
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-    });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none", 
+});
     res.status(201).json({
       message: "User Registered Successfully",
       user,
@@ -37,10 +39,11 @@ export const login = async (req, res) => {
         .json({ message: "User not found or incorrect password" });
     }
     const token = await genToken(user._id);
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false,
-    });
+   res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,       
+  sameSite: "none",   
+});
     res.status(200).json({ message: "Login Successful", user });
   } catch (err) {
     res.status(500).json({ message: "Server Error" });
@@ -51,9 +54,11 @@ export const logout = async (req, res) => {
   try {
     console.log(req.cookies);
     res.clearCookie("token", {
-      httpOnly: true,
-      secure: false,
-    });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+});
+
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     console.log(error);
