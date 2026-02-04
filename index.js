@@ -1,11 +1,12 @@
 import express from "express";
 import cors from "cors";
-import authRouter from "./routes/authRoute.js";
-const app = express();
 import cookieParser from "cookie-parser";
 import connectDb from "./config/db.js";
+import authRouter from "./routes/authRoute.js";
 import projectRouter from "./routes/projectRouter.js";
 import taskRouter from "./routes/taskRoutes.js";
+
+const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
@@ -21,10 +22,10 @@ app.use(
   }),
 );
 
+await connectDb();
+
 app.use("/api/auth", authRouter);
 app.use("/api/project", projectRouter);
 app.use("/api/task", taskRouter);
-
-await connectDb();
 
 export default app;
