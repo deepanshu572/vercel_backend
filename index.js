@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "https://vercel-frontend-5irfhs9y7-deepanshu-kumars-projects.vercel.app/",
+    origin: "https://vercel-frontend-5irfhs9y7-deepanshu-kumars-projects.vercel.app",
     credentials: true,
   })
 );
